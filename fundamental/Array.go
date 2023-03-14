@@ -44,6 +44,16 @@ d:= &c
 d[0]= 10
 fmt.Print(c,d)
 
+// Slice is bit different then array we can declare using square bracket and it have one
+// more function cap and its point to same array changing in one will reflect in another
+e:=[] int {1,2,4}
+f:=e
+f[0]= 10
+fmt.Print(e,f)
+fmt.Printf("length: %v  capsity %v",len(e),cap(f))
+
+
+
 
 
 
