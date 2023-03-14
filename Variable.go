@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	
+)
 
 // we can declare variable in var block
 
@@ -31,10 +34,34 @@ func main() {
 	var job string = "programmmer"
 
 	fmt.Printf( "Name: %s  want to learn  GO at %d who is a student %s  ", name, age, desig )
-	fmt.Printf("%s %s  its %f of morning get up and starting working  on %s don't forget you are a %s",greet,name ,time,work,job)
+	fmt.Printf("%s %s  its %f of morning get up and starting working  on %s don't forget you are a %s \n",greet,name ,time,work,job)
+
+
+	// Primitive variable 
+
+	// Boolean
+	// Numeric : Integer|Floating | complex
+	// text
+
+	var nice bool = false
+
+	notnice := 1 == 1
+
+
+	fmt.Printf("%v %T \n" , nice , nice)
+	fmt.Printf("%v %T \n" , notnice , notnice)
+
+	// if you are not assigning a valu by default it will be zero
+
+	var n bool 
+
+	fmt.Print(n)
+
+	// integer type 
+
+
 }
 
-// Variables  declaration
 
 
 
