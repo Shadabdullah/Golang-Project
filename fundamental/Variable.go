@@ -20,7 +20,7 @@ var (
 // there are two types of declartaion level package level and function level 
 // for conversion string to int we need to import package 
 
-func main() {
+func main3() {
 	
 	// without var keyword
 
