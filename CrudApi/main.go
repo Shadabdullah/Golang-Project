@@ -1,12 +1,13 @@
 package main
 
-import(
+import (
+	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"strconv"
-	"math/rand"
-	"encoding/json"
+
 	"github.com/gorilla/mux"
 )
 
@@ -26,28 +27,6 @@ type Director struct{
 
 var movies []Movie
 
-
-
-func main(){
-
-	r:=mux.newRouter()
-
-	m1 := Movie{ID: "1", Isbn: "1234567890", Title: "The Godfather", Director: &Director{Firstname: "Francis", Lastname: "Ford Coppola"}}
-	m2 := Movie{ID: "2", Isbn: "0987654321", Title: "The Shawshank Redemption", Director: &Director{Firstname: "Frank", Lastname: "Darabont"}}
-	movies = append(movies, m1, m2)
-	//Function to perform operation
-	r.HandleFunc("/movies",getMovies).Method("GET")
-	r.HandleFunc("/movies/{id}",getMovie).Method("GET")
-	r.HandleFunc("/movies",creatMovie).Method("POST")
-	r.HandleFunc("/movies/{id}",updateMovie).Method("PUT")
-	r.HandleFunc("/movies/{id}",deletMovie).Method("DELETE")
-
-	fmt.Print("server started at 8080\n")
-	log.Fatal(http.ListenAndServe(":8080",r))
-
-}
-
-
 // function
 
 func getMovies(w http.ResponseWriter , r *http.Request){
@@ -59,7 +38,7 @@ func getMovies(w http.ResponseWriter , r *http.Request){
 func deletMovie(w http.ResponseWriter ,r *http.Request){
 
 	w.Header().Set("Content-Type","application/json")
-	param := mux.vars(r)
+	param := mux.Vars(r)
 
 	for index , item:= range movies{
 
@@ -75,7 +54,7 @@ json.NewEncoder(w).Encode(movies)
 func getMovie(w http.ResponseWriter ,r *http.Request){
 
 	w.Header().Set("Content-Type","application/json")
-	param := mux.vars(r)
+	param := mux.Vars(r)
 
 	for _, item:= range movies{
 
@@ -109,7 +88,7 @@ func updateMovie(w http.ResponseWriter,r *http.Request){
 
 	w.Header().Set("Content-Type","application/json")
 
-	param := mux.vars(r)
+	param := mux.Vars(r)
 
 	for index ,item:= range movies{
 
@@ -127,3 +106,25 @@ func updateMovie(w http.ResponseWriter,r *http.Request){
 
 
 }
+
+
+func main(){
+
+	r:= mux.NewRouter()
+
+	m1 := Movie{ID: "1", Isbn: "1234567890", Title: "The Godfather", Director: &Director{Firstname: "Francis", Lastname: "Ford Coppola"}}
+	m2 := Movie{ID: "2", Isbn: "0987654321", Title: "The Shawshank Redemption", Director: &Director{Firstname: "Frank", Lastname: "Darabont"}}
+	movies = append(movies, m1, m2)
+	//Function to perform operation
+	r.HandleFunc("/movies",getMovies).Methods("GET")
+	r.HandleFunc("/movies/{id}",getMovie).Methods("GET")
+	r.HandleFunc("/movies",creatMovie).Methods("POST")
+	r.HandleFunc("/movies/{id}",updateMovie).Methods("PUT")
+	r.HandleFunc("/movies/{id}",deletMovie).Methods("DELETE")
+
+	fmt.Print("server started at 8080\n")
+	log.Fatal(http.ListenAndServe(":8080",r))
+
+}
+
+
